@@ -5,7 +5,7 @@
 State
 make_state() {
     State state = {
-        .playing = false
+        .state = 0
     };
 
     update_state(&state);

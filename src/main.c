@@ -9,6 +9,7 @@ int
 main(int argc, char **argv)
 {
     InitWindow(0, 0, "Connect4");
+    ToggleFullscreen();
     SetExitKey(KEY_NULL);
 
     Image icon = LoadImage("./Connect4.png");
@@ -16,6 +17,7 @@ main(int argc, char **argv)
     UnloadImage(icon);
 
     State state = make_state();
+    GameState gstate = make_gamestate(&state);
 
     while (!WindowShouldClose()) {
         update_state(&state);
@@ -23,13 +25,13 @@ main(int argc, char **argv)
         BeginDrawing();
             ClearBackground(GetColor(0x0f111bff));
 
-            if (!state.playing) {
+            if (state.state == 0) {
                 menu(&state);
             } else {
-                if (GetKeyPressed() == KEY_ESCAPE) {
-                    state.playing = false;
+                if (state.state != 2 && IsKeyPressed(KEY_ESCAPE)) {
+                    state.state = 0;
+                    gstate = make_gamestate(&state);
                 } else {
-                    GameState gstate = make_gamestate(&state);
                     game(&gstate);
                 }
             }

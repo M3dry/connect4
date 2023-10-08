@@ -18,7 +18,7 @@ menu(State* state) {
     Rectangle rec1 = { half_width - width/2, (state->height/4)*2 - height/2, width, height };
     bool rec1_in = CheckCollisionPointRec(state->mouse_pos, rec1);
     if (rec1_in && state->clicked) {
-        state->playing = true;
+        state->state = 1;
     } else {
         draw_button(rec1,
                     GetColor(0x6cbb3cff),
